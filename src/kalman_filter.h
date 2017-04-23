@@ -2,6 +2,8 @@
 #define KALMAN_FILTER_H_
 #include "Eigen/Dense"
 
+typedef Eigen::VectorXd(*NormalizeFunc)(Eigen::VectorXd& val);
+
 class KalmanFilter {
 public:
 
@@ -53,16 +55,10 @@ public:
   void Predict();
 
   /**
-   * Updates the state by using standard Kalman Filter equations
-   * @param z The measurement at k+1
-   */
-  void Update(const Eigen::VectorXd &z);
-
-  /**
    * Updates the state by using Extended Kalman Filter equations
    * @param z The measurement at k+1
    */
-  void UpdateEKF(const Eigen::VectorXd &z);
+  void UpdateEKF(const Eigen::VectorXd &z, const Eigen::VectorXd& xTrans, NormalizeFunc normalizeFunc);
 
 };
 
